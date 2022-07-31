@@ -1,8 +1,15 @@
 const express=require("express");
 const mongoose =require ("mongoose");
 const{MONGOURI}=require("./keys");
+const userModel = require("./models/userSchema");
+const  authRoutes=require("./auth");
 const app=express();
 const PORT=7000;
+
+
+
+///////////////////middlewares//////////////////
+app.use(authRoutes);
 
 
 
@@ -16,7 +23,7 @@ app.listen(PORT,(err)=>{
     }
 });
 
-//////////////Data bese connection//////////////////
+//////////////Data base connection//////////////////
 
 mongoose.connect(MONGOURI,(err)=>{
     if(!err){
@@ -32,4 +39,5 @@ mongoose.connect(MONGOURI,(err)=>{
 
 app.get ("/",(req,res)=>{
     res.send("YOO! You have succesfully started your backend Server ")
-})
+});
+
